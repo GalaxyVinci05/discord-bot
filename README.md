@@ -8,4 +8,5 @@ It contains the main (index) file, the config file and the package. Everything i
 3. Type in the command prompt "node index.js"
 
 As you do this things the bot will run and finally be functional.
+
 Remember to always keep the command prompt open if you want your bot to stay online. If you want to stop it, just close the command prompt.
