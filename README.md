@@ -9,4 +9,3 @@ It contains the main (index) file, the config file and the package, everything i
 
 As you do this things the bot will run and finally be functional.
 Remember to always keep the command prompt open if you want your bot to stay online. If you want to stop it, just close the command prompt.
-
