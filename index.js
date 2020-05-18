@@ -1,7 +1,7 @@
-const Discord = require('discord.js');                //This is needed to include the discord.js library in our main file
-const {prefix, token} = require('./config.json');     //Here we define the bot prefix and the token that are located in the config.json file
+const Discord = require('discord.js');               //This is needed to include the discord.js library in our main file
+const {prefix, token} = require('./config.json');    //Here we define the bot prefix and the token that are located in the config.json file
 
-const client = new Discord.Client();                  //This string creates a new Discord client
+const client = new Discord.Client();                 //This string creates a new Discord client
 
 //This is the "ready event", this event executes once when you run the bot, it's needed to actually "turn the bot on"
 client.once('ready', ready => {
