@@ -1,7 +1,7 @@
 # discord-bot
 This is a Discord Bot project that contains everything needed to make a Discord Bot in the easiest way (with explanations).
 
-It contains the main (index) file, the config file and the package. Everything is already installed, the only things you have to do to activate your bot is:
+It contains the main (index) file, the config file and the package. The only things that you have to do to run the bot are the followings:
 
 1. Open the config.json file and put your bot token there (you can find your bot token at https://discord.com/developers/applications/), then save the file and close it
 2. Open the command prompt in the project folder
