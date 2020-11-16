@@ -7,7 +7,7 @@ const { prefix, token } = require('./config.json');
 //Now we create a new Discord client
 const client = new Discord.Client();
 
-//This is the "ready event", this event executes once when you run the bot, it's needed to actually "turn the bot on"
+//This is the "ready event", this event executes when the bot starts, therefore we put "client.once" because this event will only run once in our case
 client.once('ready', () => {
     //The console.log method is used to print text into the console, in this case we are printing this text as soon as the bot is up and running
     console.log('The bot\'s ready!');
