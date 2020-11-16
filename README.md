@@ -1,5 +1,5 @@
 # discord-bot
-A Discord Bot project that contains everything needed to make a Discord Bot in the easiest way (with explanations).
+A Discord Bot basic skeleton project containing everything needed to make a Discord Bot in the easiest way (with explanations).
 
 It contains the main (index) file, the config file and the package. The only things that you have to do to run the bot are the followings:
 
