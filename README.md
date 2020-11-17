@@ -1,9 +1,9 @@
 # discord-bot
-A Discord Bot basic skeleton project containing everything needed to make a Discord Bot in the easiest way (with explanations).
+A Discord Bot basic template project with event and command handler and some example commands.
 
-It contains the main (main.js) file, the config file and the package. The only things that you have to do to run the bot are the followings:
+The only things you need to do to run the bot are the followings:
 
-1. Open the config.json file and put your bot token there (you can find your bot token at https://discord.com/developers/applications/), then save the file and close it.
+1. Open the config.js file and put your bot token there and your user ID (you can find your bot token at https://discord.com/developers/applications/), then save the file and close it.
 2. Open the terminal in the project folder.
 3. Type in the terminal "npm install" to install all the dependencies.
 5. Finally, type in the terminal "node main.js" to start the bot.
