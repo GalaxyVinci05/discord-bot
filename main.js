@@ -1,33 +1,55 @@
 //This will include the discord.js library in our main file
 const Discord = require('discord.js');
+const fs = require('fs');
 
 //Here we are importing our bot prefix and token that we put in the config.json file
-const { prefix, token } = require('./config.json');
+const config = require('./config.js');
 
 //Now we create a new Discord client
 const client = new Discord.Client();
 
-//This is the "ready event", this event executes when the bot starts, therefore we put "client.once" because this event will only run once in our case
-client.once('ready', () => {
-    //The console.log method is used to print text into the console, in this case we are printing this text as soon as the bot is up and running
-    console.log('The bot\'s ready!');
+//This will allow us to access our config file from everywhere
+client.config = config;
+//Simply the installed discord.js version
+client.version = Discord.version;
+
+//- Event handler -
+//For the event and command handler, we use the fs module which allows to read files and directories inside the project
+//Filtering files that end with ".js" which are in the ./events/ directory
+const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
+
+//For each event file:
+eventFiles.forEach(file => {
+    //Name of the file
+    const fileName = `./events/${file}`;
+    //Event name: the file name until the "."
+    const eventName = file.split('.')[0];
+    //Getting the event by the fileName
+    const event = require(fileName);
+    //Loading the events by their name and binding the properties specified in the event file
+    client.on(eventName, event.bind(null, client));
+    console.log(`Loading ${file.length} events.`);
 });
 
-//The "message event" will run each time a message is sent in a channel, because of that if we'd put "client.once" the event will only run once
-client.on('message', message => {
-    //It's always good to check if a user is a bot user or not to prevent our bot from responding to other bots
-    if (message.author.bot) return;
+//Creating new collection for the commands
+client.commands = new Discord.Collection();
 
-    //If a user sends a message containing the following, the bot will respond with "pong." 
-    if (message.content == `${prefix}ping`) {
-        message.channel.send('pong.');
-    }
-    //Same case as before but with different conditions (the "else" means that if the condition above isn't true, THEN it will check this one)
-    else if (message.content == `${prefix}beep`) {
-        message.channel.send('boop.');
-    }
-    //You can find the official Discord.js documentation at https://discord.js.org/#/docs/main/stable/general/welcome
+//- Command handler -
+//Filtering files that end with ".js" which are in the ./commands/ directory
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+
+//For each command file:
+commandFiles.forEach(file => {
+    //Name of the file
+    const fileName = `./commands/${file}`;
+    //Command name: the file name until the "."
+    const commandName = file.split('.')[0];
+    //Getting the command by the fileName
+    const command = require(fileName);
+    //Setting our commands collection
+    client.commands.set(commandName, command);
+    console.log(`Loading ${file.length} commands.`);
 });
 
 //Finally, we log in to Discord with the bot token that we put in the config.json file
-client.login(token);
+client.login(client.config.token);
