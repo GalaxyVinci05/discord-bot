@@ -1,8 +1,8 @@
-//This will include the discord.js library in our main file
+//Including the required libraries for our main file
 const Discord = require('discord.js');
 const fs = require('fs');
 
-//Here we are importing our bot prefix and token that we put in the config.json file
+//Here we are defining our config to access the variables in the config.js file
 const config = require('./config.js');
 
 //Now we create a new Discord client
