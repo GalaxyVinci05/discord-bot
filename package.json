@@ -14,6 +14,8 @@
   "author": "GalaxyVinci05",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.1"
+    "discord.js": "^12.4.1",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2"
   }
 }
