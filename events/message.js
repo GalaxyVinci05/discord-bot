@@ -1,7 +1,7 @@
 //message event
 module.exports = async (client, message) => {
     //Check if a user is a bot user or not to prevent the bot from responding to other bots
-    if (message.author.bot) return;
+    if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
 
     //Defining the arguments: arguments in a message start after the prefix and on every space there is a new argument
     const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
