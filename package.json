@@ -1,7 +1,7 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Discord Bot basic template project with event and command handler and some example commands.",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
@@ -14,7 +14,8 @@
   "author": "GalaxyVinci05",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.1",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2"
   }
