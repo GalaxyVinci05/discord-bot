@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-//
+// Requiring the dotenv package's config in order to insert the token into the process environment variables
 require('dotenv').config();
 
 // Here we are defining our config to access the variables in the config.js file
@@ -13,10 +13,10 @@ const client = new Discord.Client();
 
 // This will allow us to access our config file from everywhere
 client.config = config;
-//Simply the installed discord.js version
+// Simply the installed discord.js version
 client.version = Discord.version;
 
-//- Event handler -
+// - Event handler -
 // For the event and command handler, we use the fs module which allows to read files and directories inside the project
 // Filtering files that end with ".js" which are in the ./events/ directory
 const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
