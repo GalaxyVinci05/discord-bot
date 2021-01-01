@@ -54,5 +54,5 @@ commandFiles.forEach(file => {
     console.log(`Loading ${file.length} commands.`);
 });
 
-// Finally, we log in to Discord with the bot token that we put in the config.json file
+// Finally, we log in to Discord with the bot token located in our config file
 client.login(client.config.token);
