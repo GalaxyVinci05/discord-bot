@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A Discord Bot basic template project with event and command handler and some example commands.",
   "main": "main.js",
   "scripts": {
