@@ -1,12 +1,9 @@
-// Importing the required modules for this command
 const moment = require('moment');
 require('moment-duration-format');
 
 exports.run = async (client, message, args) => {
-    // Normally, the bot uptime is displayed in timestamp value, but with this we can make it look a bit better
     const duration = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
 
-    // In this case we are using an embed object but there's no difference between using an embed object or the MessageEmbed constructor
     const embed = {
         title: 'Statistics',
         fields: [
@@ -43,7 +40,6 @@ exports.run = async (client, message, args) => {
         ],
         color: client.config.defaultEmbedColor
     };
-    // Sending our embed object as a message
     message.channel.send({ embed: embed });
 };
 

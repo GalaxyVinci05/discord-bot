@@ -1,16 +1,11 @@
 exports.run = async (client, message, args) => {
-    // Trying to execute the following code
     try {
         message.channel.send('✅ Rebooted').then(async () => {
-            // Awaiting for logging into the console before exiting the process
             await console.log(`${message.author.tag} rebooted`);
-            // Exiting the process
             process.exit();
         });
-        // Catching errors, if there are any
     } catch (err) {
         message.channel.send('An error occurred, check the console for further information');
-        // Logging the error into the console
         console.error(err);
     }
 };

@@ -1,9 +1,7 @@
 exports.run = async (client, message, args) => {
-    // Sending the message
     message.channel.send('Pinging...').then(msg => {
         let responseTime = msg.createdTimestamp - message.createdTimestamp;
 
-        // Editing the message showing the time it took to edit it and the Websocket latency
         msg.edit(`🏓 Pong! Response took: \`${responseTime}ms\`.\nBot latency: \`${Math.round(client.ws.ping)}ms\`.`);
     });
 };
