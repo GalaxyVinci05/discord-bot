@@ -59,6 +59,7 @@ exports.run = async (client, message, args) => {
 exports.info = {
     name: 'eval', // Command name
     description: 'Evaluates arbitrary JavaScript', // Command description
+    icon: '⌨️',
     usage: '<expression>' // Command usage
 };
 
