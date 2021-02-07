@@ -10,7 +10,8 @@ exports.run = async (client, message, args) => {
 
 exports.info = {
     name: 'ping', // Command name
-    description: 'Shows the bot latency' // Command description
+    description: 'Shows the bot latency', // Command description
+    icon: '🏓'
 };
 
 exports.config = {

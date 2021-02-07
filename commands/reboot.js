@@ -17,7 +17,8 @@ exports.run = async (client, message, args) => {
 
 exports.info = {
     name: 'reboot', // Command name
-    description: 'If running with PM2, restarts the Bot' // Command description
+    description: 'If running with PM2, restarts the Bot', // Command description
+    icon: '🔄'
 };
 
 exports.config = {
