@@ -41,6 +41,7 @@ exports.run = async (client, message, args) => {
                 inline: true
             }
         ],
+        color: client.config.defaultEmbedColor
     };
     // Sending our embed object as a message
     message.channel.send({ embed: embed });
@@ -48,7 +49,8 @@ exports.run = async (client, message, args) => {
 
 exports.info = {
     name: 'stats', // Command name
-    description: 'Displays useful bot statistics' // Command description
+    description: 'Displays useful bot statistics', // Command description
+    icon: '📊'
 };
 
 exports.config = {
