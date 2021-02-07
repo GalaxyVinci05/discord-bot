@@ -21,8 +21,8 @@ exports.info = {
 };
 
 exports.config = {
-    guildOnly: false, // Whenever the command should be used in a guild or not
+    guildOnly: false, // Whether the command should be used in a guild or not
     aliases: ['restart'], // Aliases
-    disabled: false, // Whenever this command is disabled or not
-    ownerOnly: true // Whenever this command should only be available to the bot owner or not
+    disabled: false, // Whether this command is disabled or not
+    ownerOnly: true // Whether this command should only be available to the bot owner or not
 };

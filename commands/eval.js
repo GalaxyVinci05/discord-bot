@@ -8,9 +8,9 @@ exports.run = async (client, message, args) => {
 
     // Trying to execute this code
     try {
-        // The eval function is a function to execute any JavaScript code, in this case we are executing what we send in our message
+        // The eval function is a function to execute any JavaScript code, in this case we are executing what we send within the command
         let result = await eval(content);
-        // If the result is not a string, the inspect method will turn it into one
+        // If the result is not a string, the inspect method will turn it into one in order to send the content as a message
         if (typeof result !== 'string') {
           result = inspect(result, {
             depth: 0,
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
               title: 'Eval - Output',
               description: `\`\`\`js\n${result}\n\`\`\``,
             };
-            // Sending the embed and THEN logging the result into the console
+            // Sending the embed and then logging the result into the console
             return message.channel.send({ embed }).then(() => {
                 console.log(result);
             });
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
         // Sending the embed containing the result
         message.channel.send({ embed: resultEmbed });
 
-    // Catching errors
+    // Catching errors, if there are any
     } catch (err) {
         // If the error should include the bot token, censore it
         const error = err.toString().replace([client.config.token], 'nope');
@@ -63,9 +63,9 @@ exports.info = {
 };
 
 exports.config = {
-    args: true, // Whenever this command should require one or more arguments to work
-    guildOnly: false, // Whenever the command should be used in a guild or not
+    args: true, // Whether this command should require one or more arguments to work
+    guildOnly: false, // Whether the command should be used in a guild or not
     aliases: ['ev', 'js'], // Aliases
-    disabled: false, // Whenever this command is disabled or not
-    ownerOnly: true // Whenever this command should only be available to the bot owner or not
+    disabled: false, // Whether this command is disabled or not
+    ownerOnly: true // Whether this command should only be available to the bot owner or not
 };
