@@ -19,23 +19,26 @@ exports.run = async (client, message, args) => {
         // If the result includes the bot token, censore it
         if (result.includes(client.config.token)) result = result.replace(client.config.token, 'nope');
 
-        // The characters limit for an embed description is 2048 characters. If the result exceeds this limit, logging it into the console
+        // The characters limit for an embed description is 2048 characters. If the result exceeds this limit, log it into the console
         if (result.length > 2048) {
+            // Logging the actual result into the console
+            console.log(result);
+            
             result = 'Result too long to be printed (check the console)';
-            // We use the embed object because since there isn't much to put into the embed, it's more convenient to use an embed object instead of the MessageEmbed constructor, however you can use whatever you like most
+            // We use the embed object because since there isn't much to put into the embed, it's more convenient to use an embed object instead of the MessageEmbed constructor, however you can use whatever you like the most
             const embed = {
-              title: 'Eval - Output',
-              description: `\`\`\`js\n${result}\n\`\`\``,
+                title: 'Eval - Output',
+                description: `\`\`\`js\n${result}\n\`\`\``,
+                color: 'GOLD'
             };
-            // Sending the embed and then logging the result into the console
-            return message.channel.send({ embed }).then(() => {
-                console.log(result);
-            });
+            // Sending the embed with the new result
+            return message.channel.send({ embed });
         }
 
         const resultEmbed = {
             title: 'Eval - Output',
             description: `\`\`\`js\n${result}\n\`\`\``,
+            color: client.config.defaultEmbedColor
         };
         // Sending the embed containing the result
         message.channel.send({ embed: resultEmbed });
@@ -43,13 +46,13 @@ exports.run = async (client, message, args) => {
     // Catching errors, if there are any
     } catch (err) {
         // If the error should include the bot token, censore it
-        const error = err.toString().replace([client.config.token], 'nope');
+        const error = err.toString().replace(client.config.token, 'nope');
         const errorEmbed = {
             title: 'Eval- Error',
             description: `\`\`\`js\n${error}\n\`\`\``,
-            color: 'ff1c1c',
+            color: 'RED',
         };
-        // Sending the error embed and THEN logging the error into the console
+        // Sending the error embed and then logging the error into the console
         message.channel.send({ embed: errorEmbed }).then(() => {
             console.error(err);
         });
