@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Discord Bot basic template project with event and command handler and some example commands.",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "keywords": [],
   "author": "GalaxyVinci05",
