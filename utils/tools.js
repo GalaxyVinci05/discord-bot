@@ -33,7 +33,7 @@ exports.random = (range) => {
   let result;
 
   if (typeof range == 'number') {
-      result = Math.floor(Math.random() * range);
+      result = Math.floor(Math.random() * (range + 1));
   } else if (Array.isArray(range) || typeof range == 'string') {
       result = range[Math.floor(Math.random() * range.length)];
   } else if (typeof range == 'object') {
