@@ -1,25 +1,38 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-    const { commands } = client;
-    const data = commands.map(cmd => cmd.info);
+    const cmdCategories = require('../utils/categories.js')(client);
 
+    // Yes, very not professional
+    Object.entries(cmdCategories).forEach(categories => {
+        categories.filter(c => c.cmds).forEach(category => {
+            category.cmds.forEach(cmd => {
+                category.list += `\n${cmd.icon} ${cmd.name}`;
+            });
+        });
+    });
+    
     if (!args.length) {
         const embed = new MessageEmbed()
         .setTitle('Commands List')
         .setColor(client.config.defaultEmbedColor)
         .setFooter(`Use ${client.config.prefix}help <command name> to get info for a specific command.`);
-        for (const command of data) {
-            embed.addField(`${command.icon} ${command.name}`, command.description || 'No description provided');
+
+        for (let i = 0; i < Object.keys(cmdCategories).length; i++) {
+            // This looks ugly, I know
+            embed.addField(Object.values(Object.entries(cmdCategories)[i])[1].name, Object.values(Object.entries(cmdCategories)[i])[1].list || 'Empty', true);
         }
+
         return message.channel.send(embed);
     }
 
     const name = args[0].toLowerCase();
-    const command = commands.get(name) || commands.find(c => c.config.aliases && c.config.aliases.includes(name));
+    const command = client.commands.get(name) || client.commands.find(c => c.config.aliases && c.config.aliases.includes(name));
 
-    if (!command) {
+    if (!command || command.unlisted) {
         return message.reply('invalid command.');
+    } else if (command.disabled) {
+        return message.reply('this command is disabled');
     }
 
     const embed = new MessageEmbed()
@@ -30,6 +43,8 @@ exports.run = async (client, message, args) => {
     if (command.info.icon) embed.addField('**Icon:**', command.info.icon);
     if (command.config.aliases) embed.addField('**Aliases:**', command.config.aliases.join(', '));
     if (command.info.usage) embed.addField('**Usage:**', `${client.config.prefix}${command.info.name} ${command.info.usage}`);
+    if (command.config.permissions?.user) embed.addField('**Required User permissions:**', `\`${command.config.permissions.user.join('`, `')}\``);
+    if (command.config.permissions?.bot) embed.addField('**Required Bot permissions:**', `\`${command.config.permissions.bot.join('`, `')}\``);
 
     message.channel.send(embed);
 };
@@ -37,6 +52,7 @@ exports.run = async (client, message, args) => {
 exports.info = {
     name: 'help', // Command name
     description: 'Shows a complete list of commands or searches for a specific one', //Command description
+    category: 'start',
     icon: '❓',
     usage: '(command name)' // Command usage
 };
