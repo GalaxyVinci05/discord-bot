@@ -1,6 +1,6 @@
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
     message.channel.send('Pinging...').then(msg => {
-        let responseTime = msg.createdTimestamp - message.createdTimestamp;
+        const responseTime = msg.createdTimestamp - message.createdTimestamp;
 
         msg.edit(`🏓 Pong! Response took: \`${responseTime}ms\`.\nBot latency: \`${Math.round(client.ws.ping)}ms\`.`);
     });
