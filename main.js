@@ -1,16 +1,23 @@
 const Discord = require('discord.js');
+const Enmap = require('enmap');
 const fs = require('fs');
 require('dotenv').config();
 const config = require('./config.js');
+// Some useful tools to help you when coding
+const tools = require('./utils/tools.js');
 
+// Initializing new client and database
 const client = new Discord.Client();
+const db = new Enmap({ name: 'settings' });
 
 client.config = config;
+client.db = db;
+client.tools = tools;
 client.version = Discord.version;
 
 // - Event handler -
 const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
-let evtCount = [];
+const evtCount = [];
 
 eventFiles.forEach(file => {
     const fileName = `./events/${file}`;
@@ -22,14 +29,12 @@ eventFiles.forEach(file => {
     evtCount.push(eventName);
 });
 console.log(`Loaded ${evtCount.length} events.\n`);
-delete evtCount;
 
-// Commands collection
 client.commands = new Discord.Collection();
 
 // - Command handler -
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-let cmdCount = [];
+const cmdCount = [];
 
 commandFiles.forEach(file => {
     const fileName = `./commands/${file}`;
@@ -41,7 +46,6 @@ commandFiles.forEach(file => {
     cmdCount.push(commandName);
 });
 console.log(`Loaded ${cmdCount.length} commands.\n`);
-delete cmdCount;
 
 // Log in to Discord
 client.login(client.config.token);
