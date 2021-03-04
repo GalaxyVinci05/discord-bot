@@ -1,11 +1,11 @@
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
     try {
         message.channel.send('✅ Rebooted').then(async () => {
             await console.log(`${message.author.tag} rebooted`);
             process.exit();
         });
     } catch (err) {
-        message.channel.send('An error occurred, check the console for further information');
+        message.channel.send('There has been an error while rebooting, check the console for further information');
         console.error(err);
     }
 };
@@ -13,6 +13,7 @@ exports.run = async (client, message, args) => {
 exports.info = {
     name: 'reboot', // Command name
     description: 'If running with PM2, restarts the Bot', // Command description
+    category: 'system',
     icon: '🔄'
 };
 
