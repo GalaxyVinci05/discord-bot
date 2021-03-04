@@ -11,6 +11,7 @@ exports.run = async (client, message, args) => {
             depth: 0,
           });
         }
+        
         if (result.includes(client.config.token)) result = result.replace(client.config.token, 'nope');
 
         if (result.length > 2048) {
@@ -48,12 +49,13 @@ exports.run = async (client, message, args) => {
 exports.info = {
     name: 'eval', // Command name
     description: 'Evaluates arbitrary JavaScript', // Command description
+    category: 'system',
     icon: '⌨️',
     usage: '<expression>' // Command usage
 };
 
 exports.config = {
-    args: true, // Whether this command should require one or more arguments to work
+    args: true, // Whether this command should require one or more arguments
     guildOnly: false, // Whether the command should be used in a guild or not
     aliases: ['ev', 'js'], // Aliases
     disabled: false, // Whether this command is disabled or not
