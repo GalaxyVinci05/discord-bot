@@ -1,7 +1,7 @@
 const moment = require('moment');
 require('moment-duration-format');
 
-exports.run = async (client, message, args) => {
+exports.run = async (client, message) => {
     const duration = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
 
     const embed = {
@@ -46,6 +46,7 @@ exports.run = async (client, message, args) => {
 exports.info = {
     name: 'stats', // Command name
     description: 'Displays useful bot statistics', // Command description
+    category: 'system',
     icon: '📊'
 };
 
