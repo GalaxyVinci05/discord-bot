@@ -1,7 +1,4 @@
 module.exports = async (client, message) => {
-    // Ignoring messages that don't start with the bot prefix or sent by bots
-    if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
-
     if (message.guild) {
         message.guild.settings = client.db.get(message.guild.id);
 
@@ -16,7 +13,12 @@ module.exports = async (client, message) => {
         }
     }
 
-    const args = message.content.slice(client.config.prefix.length).split(/ +/g);
+    const prefix = message.guild ? message.guild.settings.prefix : client.config.prefix;
+
+    // Ignoring messages that don't start with the bot prefix or sent by bots
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+    const args = message.content.slice(prefix.length).split(/ +/g);
     const commandName = args.shift().toLowerCase();
 
     const command = client.commands.get(commandName)
@@ -35,8 +37,8 @@ module.exports = async (client, message) => {
     // Command permissions
     if (command.config.permissions) {
         const perms = {
-            user: command.config.permissions.user?.filter(perm => !message.channel.permissionsFor(message.member).has(perm)),
-            bot: command.config.permissions.bot?.filter(perm => !message.channel.permissionsFor(message.guild.me).has(perm))
+            user: command.config.permissions.user ? command.config.permissions.user.filter(perm => !message.channel.permissionsFor(message.member).has(perm)) : null,
+            bot: command.config.permissions.bot ? command.config.permissions.bot.filter(perm => !message.channel.permissionsFor(message.guild.me).has(perm)) : null
         };
 
         if (perms.user.length) return message.reply(`you don't have the following permissions: \`${perms.user.join('`, `')}\``);
@@ -47,7 +49,7 @@ module.exports = async (client, message) => {
     if (command.config.args && !args.length) {
         let msg = 'incorrect usage.';
 
-        if (command.info.usage) msg += `\nUse \`${client.config.prefix}${command.info.name} ${command.info.usage}\`.`;
+        if (command.info.usage) msg += `\nUse \`${prefix}${command.info.name} ${command.info.usage}\`.`;
 
         return message.reply(msg);
     }

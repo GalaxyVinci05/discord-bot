@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
+    const prefix = message.guild ? message.guild.settings.prefix : client.config.prefix;
+
     const cmdCategories = require('../utils/categories.js')(client);
 
     // Yes, very not professional
@@ -16,7 +18,7 @@ exports.run = async (client, message, args) => {
         const embed = new MessageEmbed()
         .setTitle('Commands List')
         .setColor(client.config.defaultEmbedColor)
-        .setFooter(`Use ${client.config.prefix}help <command name> to get info for a specific command.`);
+        .setFooter(`Use ${prefix}help <command name> to get info for a specific command.`);
 
         for (let i = 0; i < Object.keys(cmdCategories).length; i++) {
             // This looks ugly, I know
@@ -42,9 +44,9 @@ exports.run = async (client, message, args) => {
     if (command.info.description) embed.addField('**Description:**', command.info.description);
     if (command.info.icon) embed.addField('**Icon:**', command.info.icon);
     if (command.config.aliases) embed.addField('**Aliases:**', command.config.aliases.join(', '));
-    if (command.info.usage) embed.addField('**Usage:**', `${client.config.prefix}${command.info.name} ${command.info.usage}`);
-    if (command.config.permissions?.user) embed.addField('**Required User permissions:**', `\`${command.config.permissions.user.join('`, `')}\``);
-    if (command.config.permissions?.bot) embed.addField('**Required Bot permissions:**', `\`${command.config.permissions.bot.join('`, `')}\``);
+    if (command.info.usage) embed.addField('**Usage:**', `${prefix}${command.info.name} ${command.info.usage}`);
+    if (command.config.permissions && command.config.permissions.user) embed.addField('**Required User permissions:**', `\`${command.config.permissions.user.join('`, `')}\``);
+    if (command.config.permissions && command.config.permissions.bot) embed.addField('**Required Bot permissions:**', `\`${command.config.permissions.bot.join('`, `')}\``);
 
     message.channel.send(embed);
 };
