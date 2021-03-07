@@ -1,7 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 
 exports.run = async (client, message, args) => {
-    const prefix = message.guild ? message.guild.settings.prefix : client.config.prefix;
+    let prefix = '';
+    if (message.guild && message.guild.settings) prefix = message.guild.settings.prefix;
+    else prefix = client.config.prefix;
 
     const cmdCategories = require('../utils/categories.js')(client);
 

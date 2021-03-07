@@ -1,8 +1,12 @@
 module.exports = async (client, message) => {
+    let prefix = '';
+    
     if (message.guild) {
         message.guild.settings = client.db.get(message.guild.id);
 
         if (!message.guild.settings) {
+            prefix = client.config.prefix;
+
             const dbStructure = {
                 guildName: message.guild.name,
                 prefix: client.config.prefix,
@@ -10,10 +14,12 @@ module.exports = async (client, message) => {
             };
 
             client.db.set(message.guild.id, dbStructure);
+        } else {
+            prefix = message.guild.settings.prefix;
         }
+    } else {
+        prefix = client.config.prefix;
     }
-
-    const prefix = message.guild ? message.guild.settings.prefix : client.config.prefix;
 
     // Ignoring messages that don't start with the bot prefix or sent by bots
     if (!message.content.startsWith(prefix) || message.author.bot) return;
