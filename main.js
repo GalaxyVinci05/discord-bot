@@ -1,19 +1,23 @@
-const Discord = require('discord.js');
-const Enmap = require('enmap');
+const { Client, Collection, Intents, version } = require('discord.js');
+const MapDB = require('@galaxy05/map.db');
 const fs = require('fs');
 require('dotenv').config();
 const config = require('./config.js');
 // Some useful tools to help you when coding
-const tools = require('./utils/tools.js');
+const tools = require('@galaxy05/jstools');
 
 // Initializing new client and database
-const client = new Discord.Client();
-const db = new Enmap({ name: 'settings' });
+const client = new Client({ intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+    ]
+});
+const db = new MapDB('data.db');
 
 client.config = config;
 client.db = db;
 client.tools = tools;
-client.version = Discord.version;
+client.version = version;
 
 // - Event handler -
 const eventFiles = fs.readdirSync('./events/').filter(file => file.endsWith('.js'));
@@ -30,7 +34,7 @@ eventFiles.forEach(file => {
 });
 console.log(`Loaded ${evtCount.length} events.\n`);
 
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 
 // - Command handler -
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
