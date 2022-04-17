@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ * @param {string} args 
+ */
 exports.run = async (client, message, args) => {
     const member = message.mentions.members.first();
     const muteRole = message.guild.settings.muteRole;

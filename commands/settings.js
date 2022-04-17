@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ * @param {string} args 
+ */
 exports.run = async (client, message, args) => {
     if (!message.guild.settings) return message.reply('the settings for this server have just been set up, please try again');
 
@@ -5,7 +11,9 @@ exports.run = async (client, message, args) => {
         case 'prefix': {
             if (!args[1]) return message.reply('you must specify a prefix to set');
 
-            client.db.set(message.guild.id, args[1], 'prefix');
+            message.guild.settings.prefix = args[1];
+
+            client.db.set(message.guild.id, message.guild.settings);
             message.channel.send(`Prefix successfully set to \`${args[1]}\` for this server`);
             break;
         }
@@ -17,17 +25,19 @@ exports.run = async (client, message, args) => {
             const role = message.guild.roles.cache.get(roleID);
             if (!role) return message.reply('invalid role');
 
-            if (message.guild.me.hasPermission('MANAGE_CHANNELS')) {
-                message.guild.channels.cache.array().forEach(channel => {
-                    channel.createOverwrite(role, {
+            if (message.guild.me.permissions.has('MANAGE_CHANNELS')) {
+                message.guild.channels.cache.forEach(channel => {
+                    channel.permissionOverwrites.create(role, {
                         SEND_MESSAGES: false
                     });
                 });
             } else {
                 return message.reply('I need permission to Manage Channels in order to set up the mute role');
             }
+            
+            message.guild.settings.muteRole = role.id;
 
-            client.db.set(message.guild.id, role.id, 'muteRole');
+            client.db.set(message.guild.id, message.guild.settings);
             message.channel.send('Mute role successfully set up for this server');
             break;
         }
@@ -44,13 +54,13 @@ exports.run = async (client, message, args) => {
                     },
                     {
                         name: 'Mute Role:',
-                        value: message.guild.roles.cache.get(message.guild.settings.muteRole) || 'Not set',
+                        value: `${message.guild.roles.cache.get(message.guild.settings.muteRole)}` || 'Not set',
                         inline: true
                     }
                 ]
             };
     
-            return message.channel.send({ embed });
+            return message.channel.send({ embeds: [embed] });
         }
     }
 };

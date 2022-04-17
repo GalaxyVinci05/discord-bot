@@ -1,6 +1,12 @@
 const { inspect } = require('util');
 
 // Note: the eval command allows to interact with the entire bot's infrastructure and because of that it can be very dangerous, therefore the ownerOnly property in the config should be set to true
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ * @param {string} args 
+ */
 exports.run = async (client, message, args) => {
     const content = args.join(' ').replace(/client\.token/gmi, '\'nope\'');
 
@@ -23,7 +29,7 @@ exports.run = async (client, message, args) => {
                 description: `\`\`\`js\n${result}\n\`\`\``,
                 color: 'GOLD'
             };
-            return message.channel.send({ embed });
+            return message.channel.send({ embeds: [embed] });
         }
 
         const resultEmbed = {
@@ -31,7 +37,7 @@ exports.run = async (client, message, args) => {
             description: `\`\`\`js\n${result}\n\`\`\``,
             color: client.config.defaultEmbedColor
         };
-        message.channel.send({ embed: resultEmbed });
+        message.channel.send({ embeds: [resultEmbed] });
 
     } catch (err) {
         const error = err.toString().replace(client.config.token, 'nope');
@@ -40,7 +46,7 @@ exports.run = async (client, message, args) => {
             description: `\`\`\`js\n${error}\n\`\`\``,
             color: 'RED',
         };
-        message.channel.send({ embed: errorEmbed }).then(() => {
+        message.channel.send({ embeds: [errorEmbed] }).then(() => {
             console.error(err);
         });
     }

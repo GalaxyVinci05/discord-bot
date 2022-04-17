@@ -1,6 +1,11 @@
 const moment = require('moment');
 require('moment-duration-format');
 
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ */
 exports.run = async (client, message) => {
     const duration = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
 
@@ -40,7 +45,7 @@ exports.run = async (client, message) => {
         ],
         color: client.config.defaultEmbedColor
     };
-    message.channel.send({ embed: embed });
+    message.channel.send({ embeds: [embed] });
 };
 
 exports.info = {

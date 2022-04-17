@@ -1,7 +1,12 @@
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ */
 exports.run = async (client, message) => {
     try {
         message.channel.send('✅ Rebooted').then(async () => {
-            await console.log(`${message.author.tag} rebooted`);
+            console.log(`${message.author.tag} rebooted`);
             process.exit();
         });
     } catch (err) {

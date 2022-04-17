@@ -1,5 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ * @param {string} args 
+ */
 exports.run = async (client, message, args) => {
     let prefix = '';
     if (message.guild && message.guild.settings) prefix = message.guild.settings.prefix;
@@ -7,7 +13,7 @@ exports.run = async (client, message, args) => {
 
     const cmdCategories = require('../utils/categories.js')(client);
 
-    // Yes, very not professional
+    // Yes, very professionaln't
     Object.entries(cmdCategories).forEach(categories => {
         categories.filter(c => c.cmds).forEach(category => {
             category.cmds.forEach(cmd => {
@@ -20,14 +26,14 @@ exports.run = async (client, message, args) => {
         const embed = new MessageEmbed()
         .setTitle('Commands List')
         .setColor(client.config.defaultEmbedColor)
-        .setFooter(`Use ${prefix}help <command name> to get info for a specific command.`);
+        .setFooter({ text: `Use ${prefix}help <command name> to get info for a specific command.` });
 
         for (let i = 0; i < Object.keys(cmdCategories).length; i++) {
             // This looks ugly, I know
             embed.addField(Object.values(Object.entries(cmdCategories)[i])[1].name, Object.values(Object.entries(cmdCategories)[i])[1].list || 'Empty', true);
         }
 
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
     }
 
     const name = args[0].toLowerCase();
@@ -50,7 +56,7 @@ exports.run = async (client, message, args) => {
     if (command.config.permissions && command.config.permissions.user) embed.addField('**Required User permissions:**', `\`${command.config.permissions.user.join('`, `')}\``);
     if (command.config.permissions && command.config.permissions.bot) embed.addField('**Required Bot permissions:**', `\`${command.config.permissions.bot.join('`, `')}\``);
 
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed] });
 };
 
 exports.info = {

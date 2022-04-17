@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('discord.js').Message} message 
+ */
 exports.run = async (client, message) => {
     message.channel.send('Pinging...').then(msg => {
         const responseTime = msg.createdTimestamp - message.createdTimestamp;
