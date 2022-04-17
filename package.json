@@ -8,19 +8,20 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16.6"
   },
   "keywords": [],
   "author": "GalaxyVinci05",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0",
-    "enmap": "^5.8.4",
+    "@galaxy05/jstools": "^1.0.0",
+    "@galaxy05/map.db": "^1.1.0",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
-    "eslint": "^7.21.0"
+    "eslint": "^8.13.0"
   }
 }
